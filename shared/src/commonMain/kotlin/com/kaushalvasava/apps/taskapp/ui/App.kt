@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import app.cash.sqldelight.db.SqlDriver
 import com.kaushalvasava.apps.taskapp.ui.components.TaskScreen
+import com.kaushalvasava.apps.taskapp.ui.admin.AdminMainScreen
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
 
@@ -29,10 +30,19 @@ fun TaskAppTheme(
 
 @Composable
 fun App(sqlDriver: SqlDriver, isTopBarVisible: Boolean) {
+
+    var adminMode = false // replace with your own logic
+
     TaskAppTheme {
-        val birdsViewModel = getViewModel(Unit, viewModelFactory { TaskViewModel(sqlDriver) })
-        TaskScreen(birdsViewModel, isTopBarVisible)
+        if (adminMode) {
+            AdminMainScreen()
+        } else {
+            val taskViewModel =
+                getViewModel(Unit, viewModelFactory { TaskViewModel(sqlDriver) })
+            TaskScreen(taskViewModel, isTopBarVisible)
+        }
     }
 }
+
 
 
