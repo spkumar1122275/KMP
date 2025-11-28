@@ -31,7 +31,7 @@ fun TaskAppTheme(
 @Composable
 fun App(sqlDriver: SqlDriver, isTopBarVisible: Boolean) {
 
-    var adminMode = false // replace with your own logic
+    var adminMode = true // replace with your own logic
 
     TaskAppTheme {
         if (adminMode) {
