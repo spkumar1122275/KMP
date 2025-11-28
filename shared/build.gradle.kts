@@ -45,6 +45,7 @@ kotlin {
                 api("dev.icerock.moko:mvvm-compose:0.16.1")
 
                 implementation("app.cash.sqldelight:coroutines-extensions:2.0.1")
+                implementation("androidx.compose.material:material-icons-extended:1.6.8") //
             }
         }
 

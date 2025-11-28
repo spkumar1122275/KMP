@@ -12,13 +12,24 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.icons.Icons
+import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+// ... other necessary imports
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Business
+import androidx.compose.material.icons.filled.Apartment
+import androidx.compose.material.icons.filled.VerifiedUser
+import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.AssignmentInd
 
 @Composable
 fun Sidebar(
@@ -29,7 +40,7 @@ fun Sidebar(
 ) {
     // Animate the width of the sidebar smoothly
     val sidebarWidth by animateDpAsState(
-        targetValue = if (isExpanded) 220.dp else 56.dp, // Collapsed width for icon only
+        targetValue = if (isExpanded) 220.dp else 80.dp, // Collapsed width for icon only
         label = "sidebarWidthAnimation"
     )
 
@@ -85,9 +96,20 @@ private fun SidebarItem(
     page: AdminPage,
     currentPage: AdminPage,
     onClick: (AdminPage) -> Unit,
-    isSidebarExpanded: Boolean // Receive the expanded state
+    isSidebarExpanded: Boolean
 ) {
     val isSelected = currentPage == page
+
+    // Helper function to get an appropriate icon for the page
+    val icon = when (page) {
+        AdminPage.Companies -> Icons.Default.Business
+        AdminPage.Departments -> Icons.Default.Apartment
+        AdminPage.Licenses -> Icons.Default.VerifiedUser // Example icon
+        AdminPage.MainUsers -> Icons.Default.Group // Example icon
+        AdminPage.TerminalUsers -> Icons.Default.Person // Example icon
+        AdminPage.AssignLicenses -> Icons.Default.AssignmentInd // Example icon
+        // Add more icons as needed
+    }
 
     Surface(
         color = if (isSelected) MaterialTheme.colors.primary.copy(alpha = 0.15f)
@@ -101,8 +123,13 @@ private fun SidebarItem(
             modifier = Modifier.padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Placeholder for an icon if you add one later
-            // Icon(imageVector = Icons.Default...., contentDescription = null, ...)
+            // This is the placeholder example, now filled:
+            Icon(
+                imageVector = icon,
+                contentDescription = label,
+                tint = if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface,
+                modifier = Modifier.size(24.dp) // Standard icon size
+            )
 
             // Only show text if the sidebar is expanded
             AnimatedVisibility(
@@ -113,7 +140,7 @@ private fun SidebarItem(
                 Text(
                     label,
                     color = if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface,
-                    modifier = Modifier.padding(start = 8.dp) // Add padding if you have an icon
+                    modifier = Modifier.padding(start = 12.dp) // Added padding between icon and text
                 )
             }
         }
