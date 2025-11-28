@@ -1,0 +1,95 @@
+CREATE TABLE TerminalUsers (
+    terminalUserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    terminal_user_terminal_id TEXT,
+    terminal_user_pan TEXT,
+    terminal_user_store_id INTEGER REFERENCES Company(store_id) ON DELETE CASCADE,
+    terminal_user_full_name TEXT,
+    terminal_user_password TEXT,
+    terminal_user_date TEXT,
+    terminal_user_time TEXT,
+    can_cancel_refund INTEGER,
+    can_collect_payment INTEGER,
+    can_view_cashiers INTEGER,
+    can_add_edit_cashiers INTEGER,
+    can_delete_cashiers INTEGER,
+    can_view_products INTEGER,
+    can_add_edit_products INTEGER,
+    can_delete_products INTEGER,
+    can_view_all_reports INTEGER,
+    can_save_send_reports INTEGER,
+    can_manage_pos INTEGER,
+    is_admin INTEGER,
+    cellphone_number TEXT,
+    first_name TEXT,
+    last_name TEXT,
+    role TEXT,
+    terminal_dept_id INTEGER REFERENCES Department(dept_id),
+    emp_no INTEGER
+);
+
+insertTerminalUser:
+INSERT INTO TerminalUsers (
+    terminal_user_terminal_id,
+    terminal_user_pan,
+    terminal_user_store_id,
+    terminal_user_full_name,
+    terminal_user_password,
+    terminal_user_date,
+    terminal_user_time,
+    can_cancel_refund,
+    can_collect_payment,
+    can_view_cashiers,
+    can_add_edit_cashiers,
+    can_delete_cashiers,
+    can_view_products,
+    can_add_edit_products,
+    can_delete_products,
+    can_view_all_reports,
+    can_save_send_reports,
+    can_manage_pos,
+    is_admin,
+    cellphone_number,
+    first_name,
+    last_name,
+    role,
+    terminal_dept_id,
+    emp_no
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateTerminalUser:
+UPDATE TerminalUsers SET
+    terminal_user_terminal_id = ?,
+    terminal_user_pan = ?,
+    terminal_user_store_id = ?,
+    terminal_user_full_name = ?,
+    terminal_user_password = ?,
+    terminal_user_date = ?,
+    terminal_user_time = ?,
+    can_cancel_refund = ?,
+    can_collect_payment = ?,
+    can_view_cashiers = ?,
+    can_add_edit_cashiers = ?,
+    can_delete_cashiers = ?,
+    can_view_products = ?,
+    can_add_edit_products = ?,
+    can_delete_products = ?,
+    can_view_all_reports = ?,
+    can_save_send_reports = ?,
+    can_manage_pos = ?,
+    is_admin = ?,
+    cellphone_number = ?,
+    first_name = ?,
+    last_name = ?,
+    role = ?,
+    terminal_dept_id = ?,
+    emp_no = ?
+WHERE terminalUserId = ?;
+
+deleteTerminalUser:
+DELETE FROM TerminalUsers WHERE terminalUserId = ?;
+
+getTerminalUsers:
+SELECT * FROM TerminalUsers;
+
+getTerminalUsersByStore:
+SELECT * FROM TerminalUsers WHERE terminal_user_store_id = ?;

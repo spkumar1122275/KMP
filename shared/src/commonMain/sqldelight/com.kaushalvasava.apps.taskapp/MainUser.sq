@@ -1,0 +1,56 @@
+CREATE TABLE MainUser (
+    mainUserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    main_user_terminal_id TEXT,
+    main_user_pan TEXT,
+    main_user_store_id INTEGER REFERENCES Company(store_id) ON DELETE CASCADE,
+    main_user_department_id INTEGER REFERENCES Department(dept_id) ON DELETE CASCADE,
+    main_user_password TEXT,
+    main_user_cellphone_number TEXT,
+    main_user_first_name TEXT,
+    main_user_last_name TEXT,
+    main_user_role TEXT,
+    main_user_emp_no INTEGER,
+    main_user_is_admin INTEGER,
+    main_user_is_active INTEGER
+);
+
+insertMainUser:
+INSERT INTO MainUser (
+    main_user_terminal_id,
+    main_user_pan,
+    main_user_store_id,
+    main_user_department_id,
+    main_user_password,
+    main_user_cellphone_number,
+    main_user_first_name,
+    main_user_last_name,
+    main_user_role,
+    main_user_emp_no,
+    main_user_is_admin,
+    main_user_is_active
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateMainUser:
+UPDATE MainUser SET
+    main_user_terminal_id = ?,
+    main_user_pan = ?,
+    main_user_store_id = ?,
+    main_user_department_id = ?,
+    main_user_password = ?,
+    main_user_cellphone_number = ?,
+    main_user_first_name = ?,
+    main_user_last_name = ?,
+    main_user_role = ?,
+    main_user_emp_no = ?,
+    main_user_is_admin = ?,
+    main_user_is_active = ?
+WHERE mainUserId = ?;
+
+deleteMainUser:
+DELETE FROM MainUser WHERE mainUserId = ?;
+
+getMainUsers:
+SELECT * FROM MainUser;
+
+getMainUsersByStore:
+SELECT * FROM MainUser WHERE main_user_store_id = ?;

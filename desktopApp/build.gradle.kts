@@ -6,13 +6,14 @@ plugins {
 }
 
 kotlin {
-    jvm {
+    jvm("desktop") {
         compilations.all {
             kotlinOptions.jvmTarget = "17"
         }
     }
+
     sourceSets {
-        val jvmMain by getting {
+        val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(project(":shared"))
@@ -23,11 +24,11 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "MainKt"   // <-- Ensure your Main.kt has fun main()
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "KotlinMultiplatformComposeDesktopApplication"
+            packageName = "TaskApp"
             packageVersion = "1.0.0"
         }
     }

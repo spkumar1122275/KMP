@@ -1,0 +1,33 @@
+CREATE TABLE Department (
+    dept_id INTEGER NOT NULL PRIMARY KEY,
+    dept_name TEXT,
+    dept_location TEXT,
+    deptStoreId INTEGER NOT NULL REFERENCES Company(store_id) ON DELETE CASCADE
+);
+
+insertDepartment:
+INSERT INTO Department (
+    dept_id,
+    dept_name,
+    dept_location,
+    deptStoreId
+) VALUES (?, ?, ?, ?);
+
+updateDepartment:
+UPDATE Department SET
+    dept_name = ?,
+    dept_location = ?,
+    deptStoreId = ?
+WHERE dept_id = ?;
+
+deleteDepartment:
+DELETE FROM Department WHERE dept_id = ?;
+
+getDepartments:
+SELECT * FROM Department;
+
+getDepartmentById:
+SELECT * FROM Department WHERE dept_id = ?;
+
+getDepartmentsForStore:
+SELECT * FROM Department WHERE deptStoreId = ?;

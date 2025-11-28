@@ -1,0 +1,36 @@
+CREATE TABLE Company (
+    store_id INTEGER NOT NULL PRIMARY KEY,
+    company_id INTEGER,
+    company_name TEXT,
+    address TEXT,
+    phone TEXT,
+    tax_id TEXT
+);
+
+insertCompany:
+INSERT OR REPLACE INTO Company (
+    store_id,
+    company_id,
+    company_name,
+    address,
+    phone,
+    tax_id
+) VALUES (?, ?, ?, ?, ?, ?);
+
+updateCompany:
+UPDATE Company SET
+    company_id = ?,
+    company_name = ?,
+    address = ?,
+    phone = ?,
+    tax_id = ?
+WHERE store_id = ?;
+
+deleteCompany:
+DELETE FROM Company WHERE store_id = ?;
+
+getCompanies:
+SELECT * FROM Company;
+
+getCompanyById:
+SELECT * FROM Company WHERE store_id = ?;

@@ -1,0 +1,33 @@
+CREATE TABLE Licenses (
+    license_id INTEGER NOT NULL PRIMARY KEY,
+    store_id INTEGER REFERENCES Company(store_id) ON DELETE CASCADE,
+    license_name TEXT,
+    license_ref_no TEXT,
+    valid_till TEXT
+);
+
+insertLicense:
+INSERT INTO Licenses (
+    license_id,
+    store_id,
+    license_name,
+    license_ref_no,
+    valid_till
+) VALUES (?, ?, ?, ?, ?);
+
+updateLicense:
+UPDATE Licenses SET
+    store_id = ?,
+    license_name = ?,
+    license_ref_no = ?,
+    valid_till = ?
+WHERE license_id = ?;
+
+deleteLicense:
+DELETE FROM Licenses WHERE license_id = ?;
+
+getLicenses:
+SELECT * FROM Licenses;
+
+getLicensesForStore:
+SELECT * FROM Licenses WHERE store_id = ?;

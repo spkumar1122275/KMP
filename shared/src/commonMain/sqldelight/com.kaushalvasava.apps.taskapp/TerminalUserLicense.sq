@@ -1,0 +1,26 @@
+CREATE TABLE TerminalUserLicense (
+    terminalUserId INTEGER NOT NULL REFERENCES TerminalUsers(terminalUserId) ON DELETE CASCADE,
+    licenseId INTEGER NOT NULL REFERENCES Licenses(license_id) ON DELETE CASCADE,
+    licenseName TEXT,
+    PRIMARY KEY (terminalUserId, licenseId)
+);
+
+insertTerminalUserLicense:
+INSERT INTO TerminalUserLicense (
+    terminalUserId,
+    licenseId,
+    licenseName
+) VALUES (?, ?, ?);
+
+deleteTerminalUserLicense:
+DELETE FROM TerminalUserLicense
+WHERE terminalUserId = ? AND licenseId = ?;
+
+getLicensesForUser:
+SELECT * FROM TerminalUserLicense WHERE terminalUserId = ?;
+
+getUserLicensesFull:
+SELECT L.*
+FROM TerminalUserLicense TUL
+JOIN Licenses L ON L.license_id = TUL.licenseId
+WHERE TUL.terminalUserId = ?;

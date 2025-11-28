@@ -1,0 +1,80 @@
+@startuml
+class com.kaushalvasava.apps.taskapp.TaskDatabase$Companion {
++ SqlSchema<QueryResult.Value<Unit>> Schema
++ TaskDatabase invoke(SqlDriver)
+}
+
+
+interface com.kaushalvasava.apps.taskapp.TaskDatabase {
++ TaskQueries taskQueries
+}
+
+class com.kaushalvasava.apps.taskapp.datasource.DriverFactory {
++ SqlDriver createDriver()
+}
+
+class com.kaushalvasava.apps.taskapp.datasource.DriverFactory {
++ SqlDriver createDriver()
+}
+
+class com.kaushalvasava.apps.taskapp.datasource.DriverFactory {
++ SqlDriver createDriver()
+}
+
+class TaskViewModel {
++  tasks
+-  database
+- void getTasks()
++ void addTask(Task2)
++ void deleteTask(Long)
++ void update(Task2)
+}
+
+
+enum com.kaushalvasava.apps.taskapp.ui.DeviceType {
+}
+class com.kaushalvasava.apps.taskapp.datasource.model.Task2 {
+}
+class com.kaushalvasava.apps.taskapp.shared.TaskDatabaseImpl$Schema {
++ Long version
++ QueryResult.Value<Unit> create(SqlDriver)
++ QueryResult.Value<Unit> migrate(SqlDriver,Long,Long,AfterVersion)
+}
+
+
+class com.kaushalvasava.apps.taskapp.shared.TaskDatabaseImpl {
++ TaskQueries taskQueries
+}
+
+class comkaushalvasavaappstaskapp.TaskQueries {
++ Query<T> getTasks((
+    id: Long,
+    title: String,
+    isDone: Boolean,
+    color: Long,
+    date: Long,
+    isImportant: Boolean,
+  ) -> T)
++ Query<Task> getTasks()
++ void insertTask(Long?,String,Boolean,Long,Long,Boolean)
++ void deleteTask(Long)
++ void updateTask(String,Boolean,Long,Long,Boolean,Long)
+}
+
+class comkaushalvasavaappstaskapp.Task {
+}
+class com.kaushalvasava.apps.taskapp.datasource.DriverFactory {
++ SqlDriver createDriver()
+}
+
+
+
+com.kaushalvasava.apps.taskapp.TaskDatabase +.. com.kaushalvasava.apps.taskapp.TaskDatabase$Companion
+app.cash.sqldelight.Transacter <|.. com.kaushalvasava.apps.taskapp.TaskDatabase
+dev.icerock.moko.mvvm.viewmodel.ViewModel <|-- TaskViewModel
+com.kaushalvasava.apps.taskapp.shared.TaskDatabaseImpl +.. com.kaushalvasava.apps.taskapp.shared.TaskDatabaseImpl$Schema
+com.kaushalvasava.apps.taskapp.shared.SqlSchema <|.. com.kaushalvasava.apps.taskapp.shared.TaskDatabaseImpl$Schema
+app.cash.sqldelight.TransacterImpl <|-- com.kaushalvasava.apps.taskapp.shared.TaskDatabaseImpl
+com.kaushalvasava.apps.taskapp.TaskDatabase <|.. com.kaushalvasava.apps.taskapp.shared.TaskDatabaseImpl
+app.cash.sqldelight.TransacterImpl <|-- comkaushalvasavaappstaskapp.TaskQueries
+@enduml
