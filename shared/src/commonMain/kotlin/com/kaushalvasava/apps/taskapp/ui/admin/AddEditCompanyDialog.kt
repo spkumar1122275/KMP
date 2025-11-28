@@ -13,6 +13,7 @@ fun AddEditCompanyDialog(
     onDismiss: () -> Unit,
     onSave: (Company) -> Unit
 ) {
+    var companyId by remember { mutableStateOf(initial?.company_id?.toString() ?: "") }
     var name by remember { mutableStateOf(initial?.company_name ?: "") }
     var address by remember { mutableStateOf(initial?.address ?: "") }
     var phone by remember { mutableStateOf(initial?.phone ?: "") }
@@ -24,33 +25,39 @@ fun AddEditCompanyDialog(
             Text(if (initial == null) "Add Company" else "Edit Company")
         },
         text = {
-            Column {
+            Column(Modifier.fillMaxWidth()) {
+
                 OutlinedTextField(
-                    value = name, onValueChange = { name = it },
-                    label = { Text("Company name") },
+                    value = companyId,
+                    onValueChange = { companyId = it },
+                    label = { Text("Company ID") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Company Name") },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
                 OutlinedTextField(
-                    value = address, onValueChange = { address = it },
+                    value = address,
+                    onValueChange = { address = it },
                     label = { Text("Address") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(Modifier.height(8.dp))
-
                 OutlinedTextField(
-                    value = phone, onValueChange = { phone = it },
+                    value = phone,
+                    onValueChange = { phone = it },
                     label = { Text("Phone") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(Modifier.height(8.dp))
-
                 OutlinedTextField(
-                    value = taxId, onValueChange = { taxId = it },
+                    value = taxId,
+                    onValueChange = { taxId = it },
                     label = { Text("Tax ID") },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -58,21 +65,23 @@ fun AddEditCompanyDialog(
         },
         confirmButton = {
             TextButton(onClick = {
-                val result = Company(
-                    store_id = initial?.store_id ?: 0,
-                    company_id = initial?.company_id,
+                val finalCompany = Company(
+                    store_id = initial?.store_id ?: 0L,   // AUTOHANDLED IN DB
+                    company_id = companyId.toLongOrNull(),
                     company_name = name,
                     address = address,
                     phone = phone,
                     tax_id = taxId
                 )
-                onSave(result)
+                onSave(finalCompany)
             }) {
                 Text("Save")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismiss) { Text("Cancel") }
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
         }
     )
 }

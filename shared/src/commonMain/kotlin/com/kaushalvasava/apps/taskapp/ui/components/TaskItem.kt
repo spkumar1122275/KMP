@@ -1,6 +1,6 @@
 package com.kaushalvasava.apps.taskapp.ui.components
 
-import TaskViewModel
+import com.kaushalvasava.apps.taskapp.viewmodel.TaskViewModel
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring

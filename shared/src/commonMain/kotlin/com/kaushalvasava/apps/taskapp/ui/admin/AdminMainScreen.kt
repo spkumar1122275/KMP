@@ -6,27 +6,35 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kaushalvasava.apps.taskapp.viewmodel.CompanyViewModel
+import app.cash.sqldelight.db.SqlDriver
 
 @Composable
-fun AdminMainScreen() {
+fun AdminMainScreen(
+    companyViewModel: CompanyViewModel
+) {
     var currentPage by remember { mutableStateOf<AdminPage>(AdminPage.Companies) }
+    var isSidebarExpanded by remember { mutableStateOf(true) }
 
     Row(modifier = Modifier.fillMaxSize()) {
 
         // Sidebar
         Sidebar(
             currentPage = currentPage,
-            onPageSelected = { currentPage = it }
+            onPageSelected = { page -> currentPage = page },
+
+            isExpanded = isSidebarExpanded,
+            onToggleExpand = { isSidebarExpanded = !isSidebarExpanded }
         )
 
         // Main Content
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp)
+                .weight(1f)
+                .padding(16.dp)
         ) {
             when (currentPage) {
-                AdminPage.Companies -> PlaceholderPage("Companies Page")
+                AdminPage.Companies -> CompaniesScreen(viewModel = companyViewModel)
                 AdminPage.Departments -> PlaceholderPage("Departments Page")
                 AdminPage.Licenses -> PlaceholderPage("Licenses Page")
                 AdminPage.MainUsers -> PlaceholderPage("Main Users Page")
