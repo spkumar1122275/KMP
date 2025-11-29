@@ -17,16 +17,18 @@ import app.cash.sqldelight.db.SqlDriver
 import com.kaushalvasava.apps.taskapp.ui.admin.companies.CompaniesScreen
 import com.kaushalvasava.apps.taskapp.ui.admin.departments.DepartmentsScreen
 import com.kaushalvasava.apps.taskapp.ui.admin.licenses.LicensesScreen
+import com.kaushalvasava.apps.taskapp.ui.admin.mainuser.MainUserScreen
 import com.kaushalvasava.apps.taskapp.viewmodel.CompanyViewModel
 import com.kaushalvasava.apps.taskapp.viewmodel.DepartmentViewModel
 import com.kaushalvasava.apps.taskapp.viewmodel.LicensesViewModel
-
+import com.kaushalvasava.apps.taskapp.viewmodel.MainUserViewModel
 
 @Composable
 fun AdminMainScreen(
     companyViewModel: CompanyViewModel,
     departmentViewModel: DepartmentViewModel,
     licensesViewModel: LicensesViewModel,
+    mainUserViewModel: MainUserViewModel,
     sqlDriver: SqlDriver
 ) {
     var currentPage by remember { mutableStateOf<AdminPage>(AdminPage.Companies) }
@@ -50,10 +52,15 @@ fun AdminMainScreen(
                 .padding(16.dp)
         ) {
             when (currentPage) {
-                AdminPage.Companies -> CompaniesScreen(viewModel = companyViewModel)
+                AdminPage.Companies -> CompaniesScreen(companyViewModel)
                 AdminPage.Departments -> DepartmentsScreen(departmentViewModel, companyViewModel)
-                AdminPage.Licenses -> LicensesScreen(viewModel = licensesViewModel, companyViewModel = companyViewModel)
-                AdminPage.MainUsers -> PlaceholderPage("Main Users Page")
+                AdminPage.Licenses -> LicensesScreen(licensesViewModel, companyViewModel)
+                AdminPage.MainUsers -> MainUserScreen(
+                    mainUserViewModel = mainUserViewModel,
+                    companyViewModel = companyViewModel,
+                    departmentViewModel = departmentViewModel,
+                    currentUserRole = "admin"
+                )
                 AdminPage.TerminalUsers -> PlaceholderPage("Terminal Users Page")
                 AdminPage.AssignLicenses -> PlaceholderPage("Assign Licenses Page")
             }
