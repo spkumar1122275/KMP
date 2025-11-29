@@ -15,8 +15,10 @@ class DepartmentViewModel(driver: SqlDriver) : ViewModel() {
     private val db = TaskDatabase(driver)
 
     val departments = MutableStateFlow<List<Department>>(emptyList())
+    private var currentStoreId: Long? = null
 
     fun loadDepartments(storeId: Long? = null) {
+        currentStoreId = storeId
         viewModelScope.launch(Dispatchers.IO) {
             departments.value = if (storeId == null)
                 db.getDepartments()
@@ -28,20 +30,21 @@ class DepartmentViewModel(driver: SqlDriver) : ViewModel() {
     fun addDepartment(dept: Department) {
         viewModelScope.launch(Dispatchers.IO) {
             db.insertDepartment(dept)
-            loadDepartments(dept.deptStoreId)
+            loadDepartments(currentStoreId)
         }
     }
 
     fun updateDepartment(dept: Department) {
         viewModelScope.launch(Dispatchers.IO) {
             db.updateDepartment(dept)
-            loadDepartments(dept.deptStoreId)
+            loadDepartments(currentStoreId)
         }
     }
 
     fun deleteDepartment(deptId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             db.deleteDepartment(deptId)
+            loadDepartments(currentStoreId)
         }
     }
 }
