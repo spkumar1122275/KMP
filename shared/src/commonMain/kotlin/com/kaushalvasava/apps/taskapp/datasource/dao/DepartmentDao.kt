@@ -21,8 +21,8 @@ fun TaskDatabase.updateDepartment(dept: Department) {
     )
 }
 
-fun TaskDatabase.deleteDepartment(id: Long) {
-    departmentQueries.deleteDepartment(id)
+fun TaskDatabase.deleteDepartment(deptId: Long) {
+    departmentQueries.deleteDepartment(deptId)
 }
 
 fun TaskDatabase.getDepartments(): List<Department> =

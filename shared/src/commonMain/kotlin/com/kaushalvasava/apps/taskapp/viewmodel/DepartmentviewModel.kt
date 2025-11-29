@@ -39,10 +39,9 @@ class DepartmentViewModel(driver: SqlDriver) : ViewModel() {
         }
     }
 
-    fun deleteDepartment(id: Long, storeId: Long) {
+    fun deleteDepartment(deptId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            db.deleteDepartment(id)
-            loadDepartments(storeId)
+            db.deleteDepartment(deptId)
         }
     }
 }

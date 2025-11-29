@@ -23,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.Apartment
@@ -44,13 +47,18 @@ fun Sidebar(
         label = "sidebarWidthAnimation"
     )
 
+    val scrollState = rememberScrollState()
+
+
     Column(
         modifier = Modifier
+            .verticalScroll(scrollState)
             .width(sidebarWidth)
             .fillMaxHeight()
             .background(MaterialTheme.colors.surface)
             .padding(16.dp)
     ) {
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,

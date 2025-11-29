@@ -9,6 +9,8 @@ import app.cash.sqldelight.db.SqlDriver
 import com.kaushalvasava.apps.taskapp.ui.components.TaskScreen
 import com.kaushalvasava.apps.taskapp.ui.admin.AdminMainScreen
 import com.kaushalvasava.apps.taskapp.viewmodel.CompanyViewModel
+import com.kaushalvasava.apps.taskapp.viewmodel.DepartmentViewModel
+import com.kaushalvasava.apps.taskapp.viewmodel.LicensesViewModel
 import com.kaushalvasava.apps.taskapp.viewmodel.TaskViewModel
 import dev.icerock.moko.mvvm.compose.getViewModel
 import dev.icerock.moko.mvvm.compose.viewModelFactory
@@ -39,10 +41,24 @@ fun App(sqlDriver: SqlDriver, isTopBarVisible: Boolean) {
 
         if (adminMode) {
 
+            // CREATE BOTH VIEWMODELS
             val companyViewModel =
                 getViewModel(Unit, viewModelFactory { CompanyViewModel(sqlDriver) })
 
-            AdminMainScreen(companyViewModel)
+            val departmentViewModel =
+                getViewModel(Unit, viewModelFactory { DepartmentViewModel(sqlDriver) })
+
+            val licensesViewModel =
+                getViewModel(Unit, viewModelFactory { LicensesViewModel(sqlDriver) })
+
+
+            // PASS BOTH
+            AdminMainScreen(
+                companyViewModel = companyViewModel,
+                departmentViewModel = departmentViewModel,
+                licensesViewModel = licensesViewModel,
+                sqlDriver = sqlDriver
+            )
 
         } else {
 

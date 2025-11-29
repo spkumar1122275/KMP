@@ -7,11 +7,22 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kaushalvasava.apps.taskapp.viewmodel.CompanyViewModel
+import com.kaushalvasava.apps.taskapp.viewmodel.DepartmentViewModel
+import com.kaushalvasava.apps.taskapp.viewmodel.LicensesViewModel
 import app.cash.sqldelight.db.SqlDriver
+import com.kaushalvasava.apps.taskapp.ui.admin.companies.CompaniesScreen
+import com.kaushalvasava.apps.taskapp.ui.admin.departments.DepartmentsScreen
+import com.kaushalvasava.apps.taskapp.ui.admin.licenses.LicensesScreen
+import com.kaushalvasava.apps.taskapp.ui.admin.Sidebar
+
+
 
 @Composable
 fun AdminMainScreen(
-    companyViewModel: CompanyViewModel
+    companyViewModel: CompanyViewModel,
+    departmentViewModel: DepartmentViewModel,
+    licensesViewModel: LicensesViewModel,
+    sqlDriver: SqlDriver
 ) {
     var currentPage by remember { mutableStateOf<AdminPage>(AdminPage.Companies) }
     var isSidebarExpanded by remember { mutableStateOf(true) }
@@ -35,8 +46,8 @@ fun AdminMainScreen(
         ) {
             when (currentPage) {
                 AdminPage.Companies -> CompaniesScreen(viewModel = companyViewModel)
-                AdminPage.Departments -> PlaceholderPage("Departments Page")
-                AdminPage.Licenses -> PlaceholderPage("Licenses Page")
+                AdminPage.Departments -> DepartmentsScreen(viewModel = departmentViewModel)
+                AdminPage.Licenses -> LicensesScreen(viewModel = licensesViewModel, companyViewModel = companyViewModel)
                 AdminPage.MainUsers -> PlaceholderPage("Main Users Page")
                 AdminPage.TerminalUsers -> PlaceholderPage("Terminal Users Page")
                 AdminPage.AssignLicenses -> PlaceholderPage("Assign Licenses Page")

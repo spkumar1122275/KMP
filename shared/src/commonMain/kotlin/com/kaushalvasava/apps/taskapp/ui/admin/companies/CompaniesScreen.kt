@@ -1,4 +1,4 @@
-package com.kaushalvasava.apps.taskapp.ui.admin
+package com.kaushalvasava.apps.taskapp.ui.admin.companies
 
 
 import androidx.compose.foundation.layout.*
